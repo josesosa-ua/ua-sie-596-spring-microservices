@@ -1,13 +1,11 @@
 package com.optimagrowth.license.model;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,9 +13,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Organization {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Schema(
@@ -32,7 +33,9 @@ public class Organization {
   @JoinColumn(name = "president_id")
   private Person president;
 
-  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @ManyToMany(
+      fetch = FetchType.EAGER,
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(
       name = "person_organization",
       joinColumns = @JoinColumn(name = "organization_id"),
@@ -89,4 +92,33 @@ public class Organization {
   public void setMembers(List<Person> members) {
     this.members = members;
   }
+
+  // @Override
+  // public String toString() {
+  //   return "Organization{"
+  //       + "id="
+  //       + id
+  //       + ", name='"
+  //       + name
+  //       + ", category="
+  //       + category
+  //       + ", president="
+  //       + president
+  //       + ", members="
+  //       + getMembersAsString()
+  //       + ", establishedDate="
+  //       + establishedDate
+  //       + '}';
+  // }
+
+  // private String getMembersAsString() {
+  //   return listToFormattedString(members);
+  // }
+
+  // private String listToFormattedString(List<?> list) {
+  //   return Optional.ofNullable(list)
+  //       .map(m -> m.stream().map(Object::toString).collect(Collectors.joining(", ")))
+  //       .filter(s -> !s.isEmpty())
+  //       .orElse("None");
+  // }
 }

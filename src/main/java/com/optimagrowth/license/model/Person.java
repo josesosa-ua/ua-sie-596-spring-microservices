@@ -1,8 +1,5 @@
 package com.optimagrowth.license.model;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -12,9 +9,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Entity
 public class Person {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Schema(
@@ -22,11 +24,12 @@ public class Person {
       accessMode = Schema.AccessMode.READ_ONLY)
   private Long id;
 
-  @OneToMany(mappedBy = "president", fetch = FetchType.LAZY)
-  private List<Organization> organizations;
+  @OneToMany(mappedBy = "president", fetch = FetchType.EAGER)
+  private List<Organization> presidedOrganizations;
 
   @ManyToMany(
       mappedBy = "members",
+      fetch = FetchType.EAGER,
       cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<Organization> memberships;
 
@@ -93,12 +96,12 @@ public class Person {
     this.major = major;
   }
 
-  public List<Organization> getOrganizations() {
-    return organizations;
+  public List<Organization> getPresidedOrganizations() {
+    return presidedOrganizations;
   }
 
-  public void setOrganizations(List<Organization> organizations) {
-    this.organizations = organizations;
+  public void setPresidedOrganizations(List<Organization> presidedOrganizations) {
+    this.presidedOrganizations = presidedOrganizations;
   }
 
   public List<Organization> getMemberships() {
@@ -107,5 +110,43 @@ public class Person {
 
   public void setMemberships(List<Organization> memberships) {
     this.memberships = memberships;
+  }
+
+  @Override
+  public String toString() {
+    return "Person [id="
+        + id
+        + ", name="
+        + name
+        + ", major="
+        + major
+        + ", dept="
+        + dept
+        + ", dateOfBirth="
+        + dateOfBirth
+        + ", phone="
+        + phone
+        + ", email="
+        + email
+        + ", presidedOrganizations="
+        + getPresidedOrganizationsNames()
+        + ", memberships="
+        + getMembershipsNames()
+        + "]";
+  }
+
+  private String getPresidedOrganizationsNames() {
+    return getOrganizationsNames(presidedOrganizations);
+  }
+
+  private String getMembershipsNames() {
+    return getOrganizationsNames(memberships);
+  }
+
+  private String getOrganizationsNames(List<Organization> organizations) {
+    return Optional.ofNullable(organizations)
+        .map(m -> m.stream().map(Organization::getName).collect(Collectors.joining(", ")))
+        .filter(s -> !s.isEmpty())
+        .orElse("None");
   }
 }

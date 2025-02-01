@@ -1,6 +1,7 @@
 package com.optimagrowth.license.model.exception;
 
 public class OrganizationValidationException extends IllegalStateException {
+
   public OrganizationValidationException(String message) {
     super(message);
   }

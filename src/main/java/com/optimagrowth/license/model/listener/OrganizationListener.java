@@ -6,6 +6,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 
 public class OrganizationListener {
+
   @PrePersist
   public void onSave(Organization organization) {
     if (hasNoMembers(organization)) {
