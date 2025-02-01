@@ -1,15 +1,34 @@
 package com.optimagrowth.license.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+
 @Entity
 public class Person {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Schema(
+      description = "Auto-generated ID. Do not include in POST request.",
+      accessMode = Schema.AccessMode.READ_ONLY)
   private Long id;
+
+  @OneToMany(mappedBy = "president", fetch = FetchType.LAZY)
+  private List<Organization> organizations;
+
+  @ManyToMany(
+      mappedBy = "members",
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  private List<Organization> memberships;
 
   private String name;
   private String major;
@@ -17,9 +36,6 @@ public class Person {
   private LocalDate dateOfBirth;
   private String phone;
   private String email;
-
-  @OneToMany(mappedBy = "president", fetch = FetchType.LAZY)
-  private List<Organization> organizations;
 
   public String getName() {
     return name;
@@ -83,5 +99,13 @@ public class Person {
 
   public void setOrganizations(List<Organization> organizations) {
     this.organizations = organizations;
+  }
+
+  public List<Organization> getMemberships() {
+    return memberships;
+  }
+
+  public void setMemberships(List<Organization> memberships) {
+    this.memberships = memberships;
   }
 }
