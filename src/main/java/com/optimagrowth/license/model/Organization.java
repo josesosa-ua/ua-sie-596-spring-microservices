@@ -15,6 +15,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Entity
 public class Organization {
@@ -93,32 +95,34 @@ public class Organization {
     this.members = members;
   }
 
-  // @Override
-  // public String toString() {
-  //   return "Organization{"
-  //       + "id="
-  //       + id
-  //       + ", name='"
-  //       + name
-  //       + ", category="
-  //       + category
-  //       + ", president="
-  //       + president
-  //       + ", members="
-  //       + getMembersAsString()
-  //       + ", establishedDate="
-  //       + establishedDate
-  //       + '}';
-  // }
+  @Override
+  public String toString() {
+    return "Organization["
+        + "id="
+        + id
+        + ", name='"
+        + name
+        + ", category="
+        + category
+        + ", president="
+        + president.getName()
+        + ", number of members="
+        + getMembersCount()
+        + ", members="
+        + getMembersNames()
+        + ", establishedDate="
+        + establishedDate
+        + "]";
+  }
 
-  // private String getMembersAsString() {
-  //   return listToFormattedString(members);
-  // }
+  private int getMembersCount() {
+    return Optional.ofNullable(members).map(List::size).orElse(0);
+  }
 
-  // private String listToFormattedString(List<?> list) {
-  //   return Optional.ofNullable(list)
-  //       .map(m -> m.stream().map(Object::toString).collect(Collectors.joining(", ")))
-  //       .filter(s -> !s.isEmpty())
-  //       .orElse("None");
-  // }
+  private String getMembersNames() {
+    return Optional.ofNullable(members)
+        .map(m -> m.stream().map(Person::getName).collect(Collectors.joining(", ")))
+        .filter(s -> !s.isEmpty())
+        .orElse("None");
+  }
 }

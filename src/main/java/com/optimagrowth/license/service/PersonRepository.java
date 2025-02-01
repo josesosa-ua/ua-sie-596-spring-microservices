@@ -1,9 +1,7 @@
 package com.optimagrowth.license.service;
 
 import com.optimagrowth.license.model.Person;
-
 import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
