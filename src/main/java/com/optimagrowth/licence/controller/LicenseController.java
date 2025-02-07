@@ -1,7 +1,11 @@
 package com.optimagrowth.licence.controller;
 
-import java.util.Locale;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import com.optimagrowth.licence.model.License;
+import com.optimagrowth.licence.service.LicenseService;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.optimagrowth.licence.model.License;
-import com.optimagrowth.licence.service.LicenseService;
-
 @RestController
 @RequestMapping(value = "/v1/organization/{organizationId}/license")
 public class LicenseController {
@@ -27,7 +28,9 @@ public class LicenseController {
   public ResponseEntity<License> getLicense(
       @PathVariable("organizationId") String organizationId,
       @PathVariable("licenseId") String licenseId) {
-    return ResponseEntity.ok(licenseService.getLicense(organizationId, licenseId));
+    var licence = licenseService.getLicense(organizationId, licenseId);
+    addHateoasTo(licence);
+    return ResponseEntity.ok(licence);
   }
 
   @PostMapping
@@ -52,5 +55,25 @@ public class LicenseController {
       @PathVariable String licenseId,
       @RequestHeader(value = "Accept-Language", required = false) Locale locale) {
     return ResponseEntity.ok(licenseService.deleteLicense(organizationId, licenseId, locale));
+  }
+
+  private void addHateoasTo(License licence) {
+    licence.add(
+        linkTo(
+                methodOn(LicenseController.class)
+                    .getLicense(licence.getOrganizationId(), licence.getLicenseId()))
+            .withSelfRel(),
+        linkTo(
+                methodOn(LicenseController.class)
+                    .createLicense(licence.getOrganizationId(), licence, null))
+            .withRel("createLicense"),
+        linkTo(
+                methodOn(LicenseController.class)
+                    .updateLicense(licence.getOrganizationId(), licence, null))
+            .withRel("updateLicense"),
+        linkTo(
+                methodOn(LicenseController.class)
+                    .deleteLicense(licence.getOrganizationId(), licence.getLicenseId(), null))
+            .withRel("deleteLicense"));
   }
 }
