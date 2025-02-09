@@ -1,0 +1,822 @@
+{
+	"info": {
+		"_postman_id": "ab811419-2565-45b8-8d0f-86ca1d405888",
+		"name": "Module 3",
+		"description": "HAR To Postman Generated Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41267002"
+	},
+	"item": [
+		{
+			"name": "Create License in English",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body includes 'created'\r",
+							"pm.test(\"Check if response body includes 'created'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('created');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"licenseId\": \"{{licenseId-1}}\",\r\n\t\"organizationId\": \"Optima Growth\",\r\n\t\"description\": \"Software product\",\r\n\t\"productName\": \"Ostock\",\r\n\t\"licenseType\": \"complete\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create License Prevents Two License with Same LicenseId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"licenseId\": \"{{licenseId-1}}\",\r\n\t\"organizationId\": \"Optima Growth\",\r\n\t\"description\": \"Software product\",\r\n\t\"productName\": \"Ostock\",\r\n\t\"licenseType\": \"complete\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create License in Spanish",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body includes 'created'\r",
+							"pm.test(\"Check if response body includes 'created'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('creada');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "es"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"licenseId\": \"{{licenseId-2}}\",\r\n\t\"organizationId\": \"Optima Growth\",\r\n\t\"description\": \"Software product\",\r\n\t\"productName\": \"Ostock\",\r\n\t\"licenseType\": \"complete\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create License in Martian",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body includes 'created'\r",
+							"pm.test(\"Check if response body includes 'created'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('Blorp');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "ma"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"licenseId\": \"{{licenseId-3}}\",\r\n\t\"organizationId\": \"Optima Growth\",\r\n\t\"description\": \"Software product\",\r\n\t\"productName\": \"Ostock\",\r\n\t\"licenseType\": \"complete\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get License in English",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body contains licenseId\r",
+							"pm.test(\"Check if response body contains licenseId\", function () {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody).to.have.property('license');\r",
+							"});\r",
+							"\r",
+							"// Check if response body has HATEOAS\r",
+							"pm.test(\"Check if response body has HATEOAS\", function () {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody.license).to.have.property('links');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license",
+						"{{licenseId-1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get License in Spanish",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body contains message\r",
+							"pm.test(\"Check if response body contains message\", function () {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody).to.have.property('message');\r",
+							"});\r",
+							"\r",
+							"// Check if response body has HATEOAS\r",
+							"pm.test(\"Check if response body has HATEOAS\", function () {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody.license).to.have.property('links');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "es"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license",
+						"{{licenseId-2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get License in Martian",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body contains message\r",
+							"pm.test(\"Check if response body contains message\", function () {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody).to.have.property('message');\r",
+							"});\r",
+							"\r",
+							"// Check if response body has HATEOAS\r",
+							"pm.test(\"Check if response body has HATEOAS\", function () {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody.license).to.have.property('links');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept_Language",
+						"value": "ma"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-3}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license",
+						"{{licenseId-3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bad License Return 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 404\r",
+							"pm.test(\"Check if status is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{badLicenseId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license",
+						"{{badLicenseId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update License in English",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body includes 'updated'\r",
+							"pm.test(\"Check if response body includes 'updated'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('updated');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"licenseId\": {{licenseId-1}},\r\n\t\"organizationId\": \"Optima Growth\",\r\n\t\"description\": \"Software product\",\r\n\t\"productName\": \"Super Ostock\",\r\n\t\"licenseType\": \"complete\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update License in Spanish",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body includes 'updated'\r",
+							"pm.test(\"Check if response body includes 'updated'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('actualizada');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "es"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"licenseId\": {{licenseId-2}},\r\n\t\"organizationId\": \"Optima Growth\",\r\n\t\"description\": \"Software product\",\r\n\t\"productName\": \"Super Ostock\",\r\n\t\"licenseType\": \"complete\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update License in Martian",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body includes 'updated'\r",
+							"pm.test(\"Check if response body includes 'updated'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('zarg');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "ma"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"licenseId\": {{licenseId-2}},\r\n\t\"organizationId\": \"Optima Growth\",\r\n\t\"description\": \"Software product\",\r\n\t\"productName\": \"Super Ostock\",\r\n\t\"licenseType\": \"complete\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete License in English",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body includes 'deleted'\r",
+							"pm.test(\"Check if response body includes 'deleted'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('deleted');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license",
+						"{{licenseId-1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete License in Spanish",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body includes 'deleted'\r",
+							"pm.test(\"Check if response body includes 'deleted'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('eliminada');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "es"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license",
+						"{{licenseId-2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete License in Martian",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if status is 200\r",
+							"pm.test(\"Check if status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if response body includes 'deleted'\r",
+							"pm.test(\"Check if response body includes 'deleted'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('zarg');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "insomnia/10.3.0"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "ma"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-3}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{optimaGroutMapping}}",
+						"license",
+						"{{licenseId-3}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "licenseId-1",
+			"value": "9935431899",
+			"type": "default"
+		},
+		{
+			"key": "licenseId-2",
+			"value": "8835431888",
+			"type": "string"
+		},
+		{
+			"key": "licenseId-3",
+			"value": "7735431877",
+			"type": "string"
+		},
+		{
+			"key": "badLicenseId",
+			"value": "aksjdh",
+			"type": "default"
+		}
+	]
+}

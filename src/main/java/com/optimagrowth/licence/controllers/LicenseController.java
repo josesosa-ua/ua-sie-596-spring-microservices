@@ -1,12 +1,11 @@
-package com.optimagrowth.licence.controller;
+package com.optimagrowth.licence.controllers;
 
+import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
-import com.optimagrowth.licence.model.License;
-import com.optimagrowth.licence.service.LicenseService;
-import java.util.Locale;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.optimagrowth.licence.models.License;
+import com.optimagrowth.licence.models.LicenseResponse;
+import com.optimagrowth.licence.services.LicenseService;
+
 @RestController
 @RequestMapping(value = "/v1/organization/{organizationId}/license")
 public class LicenseController {
@@ -25,28 +28,43 @@ public class LicenseController {
   @Autowired private LicenseService licenseService;
 
   @GetMapping("/{licenseId}")
-  public ResponseEntity<License> getLicense(
-      @PathVariable("organizationId") String organizationId,
-      @PathVariable("licenseId") String licenseId) {
-    var licence = licenseService.getLicense(organizationId, licenseId);
-    addHateoasTo(licence);
-    return ResponseEntity.ok(licence);
+  public ResponseEntity<LicenseResponse> getLicense(
+      @PathVariable String organizationId,
+      @PathVariable String licenseId,
+      @RequestHeader(value = "Accept-Language", required = false) Locale locale) {
+    return licenseService
+        .getLicense(organizationId, licenseId, locale)
+        .map(
+            licenseResponse -> {
+              addHateoasTo(licenseResponse.getLicense());
+              return ResponseEntity.ok(licenseResponse);
+            })
+        .orElse(ResponseEntity.notFound().build());
   }
 
   @PostMapping
-  public ResponseEntity<String> createLicense(
+  public ResponseEntity<LicenseResponse> createLicense(
       @PathVariable String organizationId,
       @RequestBody License licenseRequest,
       @RequestHeader(value = "Accept-Language", required = false) Locale locale) {
-    return ResponseEntity.ok(licenseService.createLicense(licenseRequest, organizationId, locale));
+    if (licenseService
+        .getLicense(organizationId, licenseRequest.getLicenseId(), locale)
+        .isPresent()) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+    var licenseResponse = licenseService.createLicense(licenseRequest, organizationId, locale);
+    addHateoasTo(licenseResponse.getLicense());
+    return ResponseEntity.ok(licenseResponse);
   }
 
   @PutMapping
-  public ResponseEntity<String> updateLicense(
+  public ResponseEntity<LicenseResponse> updateLicense(
       @PathVariable String organizationId,
       @RequestBody License licenseRequest,
       @RequestHeader(value = "Accept-Language", required = false) Locale locale) {
-    return ResponseEntity.ok(licenseService.updateLicense(licenseRequest, organizationId, locale));
+    var licenseResponse = licenseService.updateLicense(licenseRequest, organizationId, locale);
+    addHateoasTo(licenseResponse.getLicense());
+    return ResponseEntity.ok(licenseResponse);
   }
 
   @DeleteMapping("/{licenseId}")
@@ -54,14 +72,15 @@ public class LicenseController {
       @PathVariable String organizationId,
       @PathVariable String licenseId,
       @RequestHeader(value = "Accept-Language", required = false) Locale locale) {
-    return ResponseEntity.ok(licenseService.deleteLicense(organizationId, licenseId, locale));
+    var licenseResponse = licenseService.deleteLicense(organizationId, licenseId, locale);
+    return ResponseEntity.ok(licenseResponse);
   }
 
   private void addHateoasTo(License licence) {
     licence.add(
         linkTo(
                 methodOn(LicenseController.class)
-                    .getLicense(licence.getOrganizationId(), licence.getLicenseId()))
+                    .getLicense(licence.getOrganizationId(), licence.getLicenseId(), null))
             .withSelfRel(),
         linkTo(
                 methodOn(LicenseController.class)
