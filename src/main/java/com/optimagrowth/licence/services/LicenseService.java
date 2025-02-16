@@ -1,20 +1,15 @@
 package com.optimagrowth.licence.services;
 
+import com.optimagrowth.licence.models.License;
+import com.optimagrowth.licence.models.LicenseResponse;
+import com.optimagrowth.licence.repositories.LicenseRepository;
 import java.util.Locale;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import com.optimagrowth.licence.models.License;
-import com.optimagrowth.licence.models.LicenseResponse;
-import com.optimagrowth.licence.repositories.LicenseRepository;
-
-import jakarta.transaction.Transactional;
-
 @Service
-@Transactional
 public class LicenseService {
 
   @Autowired private LicenseRepository licenseRepository;
@@ -58,6 +53,8 @@ public class LicenseService {
   }
 
   public boolean licenseExists(String organizationId, String licenseId) {
-    return licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId).isPresent();
+    return licenseRepository
+        .findByOrganizationIdAndLicenseId(organizationId, licenseId)
+        .isPresent();
   }
 }
