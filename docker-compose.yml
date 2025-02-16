@@ -32,6 +32,8 @@ services:
     depends_on:
       - mongodb
       - mongo-express
+    profiles:
+      - full-dev
 
 # Define named volumes
 volumes:
