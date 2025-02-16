@@ -1,27 +1,8 @@
 services:
-  mongodb:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password
-    volumes:
-      - mongo-data:/data/db
 
-  mongo-express:
-    image: mongo-express:latest
-    restart: always
+  licensing-service:
+    image: licensing-service:0.0.1-SNAPSHOT
     ports:
-      - "8081:8081"
+      - 8080:8080
     environment:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
-      - ME_CONFIG_MONGODB_SERVER=mongodb
-      - ME_CONFIG_BASICAUTH_USERNAME=admin
-      - ME_CONFIG_BASICAUTH_PASSWORD=password
-
-# Define named volumes
-volumes:
-  mongo-data:
-    driver: local
+      - SPRING_PROFILES_ACTIVE=devzz
