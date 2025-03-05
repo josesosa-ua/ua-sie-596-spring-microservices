@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: "License Service"
+
+management:
+  endpoints:
+    access:
+      default: none
+  endpoint:
+    health:
+      access: unrestricted
+      show-details: always
+  health:
+    db:
+      enabled: false
+    diskspace:
+      enabled: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
