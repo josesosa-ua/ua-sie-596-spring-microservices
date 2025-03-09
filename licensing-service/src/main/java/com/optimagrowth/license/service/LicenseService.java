@@ -41,20 +41,20 @@ public class LicenseService {
         return responseMessage;
     }
 
-    public String updateLicense(License license, String organizationId) {
+    public String updateLicense(License license, String organizationId, Locale locale) {
         String responseMessage = null;
         if (StringUtils.hasText(license.toString())) {
             license.setOrganizationId(organizationId);
-            responseMessage = String.format(messages.getMessage("license.update.message", null, null),
+            responseMessage = String.format(messages.getMessage("license.update.message", null, locale),
                     license.toString());
         }
 
         return responseMessage;
     }
 
-    public String deleteLicense(String licenseId, String organizationId) {
+    public String deleteLicense(String licenseId, String organizationId, Locale locale) {
         String responseMessage = null;
-        responseMessage = String.format(messages.getMessage("license.delete.message", null, null), licenseId,
+        responseMessage = String.format(messages.getMessage("license.delete.message", null, locale), licenseId,
                 organizationId);
         return responseMessage;
 

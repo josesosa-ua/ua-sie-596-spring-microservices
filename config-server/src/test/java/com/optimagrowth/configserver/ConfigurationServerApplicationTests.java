@@ -1,0 +1,14 @@
+package com.optimagrowth.configserver;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+@SpringBootTest
+class ConfigurationServerApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}

@@ -1,7 +1,26 @@
 services:
+
+  config-server:
+    image: "ostock/config-server:0.0.1-SNAPSHOT"
+    ports:
+      - "8071:8071"
+    networks:
+      ostock-network:
+
   licensing-service:
     image: "ostock/licensing-service:0.0.1-SNAPSHOT"
     ports:
       - "8080:8080"
     environment:
-      - "SPRING_PROFILES_ACTIVE=dev"
+      PROFILE: "dev"
+      CONFIGSERVER_URL: "http://config-server:8071"
+      CONFIGSERVER_PORT: "8071"
+    depends_on:
+      config-server:
+        condition: service_started
+    networks:
+      ostock-network:
+
+networks:
+  ostock-network:
+    driver: bridge

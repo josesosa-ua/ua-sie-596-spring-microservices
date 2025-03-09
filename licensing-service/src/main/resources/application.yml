@@ -1,6 +1,6 @@
 spring:
   application:
-    name: "License Service"
+    name: "Licencing Service"
 
 management:
   endpoints:
