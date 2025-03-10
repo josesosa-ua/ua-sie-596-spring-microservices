@@ -44,9 +44,13 @@ services:
       PROFILE: "dev"
       CONFIGSERVER_URL: "http://config-server:8071"
       CONFIGSERVER_PORT: "8071"
+      DATABASE_PORT: "5432"
     depends_on:
+      license-database:
+        condition: service_started
       config-server:
         condition: service_started
+    restart: on-failure:5
     networks:
       ostock-network:
 

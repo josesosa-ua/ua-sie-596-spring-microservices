@@ -1,11 +1,15 @@
 spring:
   application:
-    name: "Licencing Service"
+    name: "licensing-service"
+  profiles:
+    active: "dev"
+  cloud:
+    config:
+      uri: http://config-server:8071
+  config:
+    import: "configserver:http://config-server:8071"
 
 management:
-  endpoints:
-    access:
-      default: none
   endpoint:
     health:
       access: unrestricted
