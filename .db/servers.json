@@ -1,9 +1,9 @@
 {
   "Servers": {
     "License-Database": {
-      "Name": "license-database",
+      "Name": "ostock-database",
       "Group": "Servers",
-      "Host": "licence-database",
+      "Host": "ostock-database",
       "Port": 5432,
       "MaintenanceDB": "postgres",
       "Username": "postgres",

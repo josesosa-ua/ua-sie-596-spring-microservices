@@ -1,0 +1,29 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.43")
+    }
+}
+
+plugins {
+    id 'com.palantir.docker' version '0.36.0' apply false
+}
+
+allprojects {
+    group = 'com.optimagrowth'
+    version = '0.0.1-SNAPSHOT'
+    ext {
+        team = 'ostock'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'io.spring.javaformat'
+    apply plugin: 'com.palantir.docker'
+}

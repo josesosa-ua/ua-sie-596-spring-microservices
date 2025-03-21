@@ -11,6 +11,11 @@ services:
     volumes:
       - ./.db/init.sql:/docker-entrypoint-initdb.d/1-init.sql
       - ./.db/data.sql:/docker-entrypoint-initdb.d/2-data.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - ostock-network
 
@@ -25,7 +30,14 @@ services:
       - ./.db/servers.json:/pgadmin4/servers.json
     depends_on:
       ostock-database:
-        condition: service_started
+        condition: service_healthy
+    networks:
+      - ostock-network
+
+  config-server:
+    image: ostock/config-server:0.0.1-SNAPSHOT
+    ports:
+      - 8071:8071
     networks:
       - ostock-network
 
@@ -34,9 +46,11 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - "SPRING_PROFILES_ACTIVE=dev"
+      SPRING_PROFILES_ACTIVE: dev
     depends_on:
       ostock-database:
+        condition: service_healthy
+      config-server:
         condition: service_started
     networks:
       - ostock-network

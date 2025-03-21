@@ -1,17 +1,22 @@
 spring:
   application:
-    name: License Service
+    name: licensing-service
   profiles:
-    active: local
+    active: test
+  config:
+    import:
+      - optional:configserver:http://config-server:8071
 
 management:
   endpoints:
-    access:
-      default: none
+    web:
+      exposure:
+        include: health,env
   endpoint:
     health:
-      access: unrestricted
       show-details: always
+    env:
+      show-values: always
   health:
     db:
       enabled: false
@@ -22,17 +27,23 @@ management:
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: test
   datasource:
-    hikari:
-      jdbc-url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-      username: localuser
-      password: localpass
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL
     driver-class-name: org.h2.Driver
+    username: sa
+    password:
   h2:
     console:
       enabled: true
+      path: /h2-console
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/init.sql
+      data-locations: classpath:db/data.sql
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
