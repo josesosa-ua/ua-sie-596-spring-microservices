@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: License Service
+
+management:
+  endpoints:
+    access:
+      default: none
+  endpoint:
+    health:
+      access: unrestricted
+      show-details: always
+  health:
+    db:
+      enabled: false
+    disk-space:
+      enabled: true
