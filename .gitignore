@@ -22,5 +22,19 @@ crashlytics-build.properties
 fabric.properties
 
 ### Intellij Patch ###
- *.iml
- modules.xml
+*.iml
+modules.xml
+
+# Gradle files
+.gradle/
+build/
+
+# Gradle Wrapper files
+gradle/wrapper/gradle-wrapper.properties
+gradle/wrapper/gradle-wrapper.jar
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp

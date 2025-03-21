@@ -1,0 +1,3 @@
+rootProject.name = 'ostock-services'
+
+include('licensing-service')
