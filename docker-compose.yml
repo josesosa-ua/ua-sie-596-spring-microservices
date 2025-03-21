@@ -1,7 +1,46 @@
 services:
-  licensingservice:
+
+  ostock-database:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ostock_dev
+    volumes:
+      - ./.db/init.sql:/docker-entrypoint-initdb.d/1-init.sql
+      - ./.db/data.sql:/docker-entrypoint-initdb.d/2-data.sql
+    networks:
+      - ostock-network
+
+  pga-admin:
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.edu
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - ./.db/servers.json:/pgadmin4/servers.json
+    depends_on:
+      ostock-database:
+        condition: service_started
+    networks:
+      - ostock-network
+
+  licensing-service:
     image: ostock/licensing-service:0.0.1-SNAPSHOT
     ports:
       - "8080:8080"
     environment:
       - "SPRING_PROFILES_ACTIVE=dev"
+    depends_on:
+      ostock-database:
+        condition: service_started
+    networks:
+      - ostock-network
+
+networks:
+  ostock-network:
+    driver: bridge

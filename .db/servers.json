@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "License-Database": {
+      "Name": "license-database",
+      "Group": "Servers",
+      "Host": "licence-database",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "postgres",
+      "Password": "postgres",
+      "SSLMode": "prefer"
+    }
+  }
+}
