@@ -7,7 +7,7 @@ spring:
     config:
       uri: http://config-server:8071
   config:
-    import: "configserver:http://config-server:8071"
+    import: "configserver:http://config-server:8091"
 
 management:
   endpoint:

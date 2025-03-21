@@ -21,7 +21,7 @@ If you want to follow the code for a specific chapter, then got to the appropiat
 1. Run the collection.
 1. The collection is pre-populated with tests. You should see test results like these after runngin the collection:
 
-   ![alt text](documentation/test-results.png)
+   ![alt text](.documentation/test-results.png)
 
 ## Start the Application Locally
 1. Clone the repository.
@@ -43,7 +43,7 @@ If you want to follow the code for a specific chapter, then got to the appropiat
       ```
 4. Expect this in your terminal if the application starts succesfully:
 
-   ![alt text](./documentation/spring-app-running.png)
+   ![alt text](./.documentation/spring-app-running.png)
 
 
 # Start the Application in a Container

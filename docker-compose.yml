@@ -29,10 +29,53 @@ services:
     networks:
       ostock-network:
 
+  eureka-server:
+    image: ostock/eureka-server:0.0.1-SNAPSHOT
+    ports:
+      - "8070:8070"
+    depends_on:
+      license-database:
+        condition: service_started
+      config-server:
+        condition: service_started
+    restart: on-failure:5
+    networks:
+      ostock-network:
+
+  eureka-server-2:
+    image: ostock/eureka-server:0.0.1-SNAPSHOT
+    ports:
+      - "8071:8071"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=peer1"
+    depends_on:
+      license-database:
+        condition: service_started
+      config-server:
+        condition: service_started
+    restart: on-failure:5
+    networks:
+      ostock-network:
+
+  eureka-server-3:
+    image: ostock/eureka-server:0.0.1-SNAPSHOT
+    ports:
+      - "8072:8072"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=peer2"
+    depends_on:
+      license-database:
+        condition: service_started
+      config-server:
+        condition: service_started
+    restart: on-failure:5
+    networks:
+      ostock-network:
+
   config-server:
     image: "ostock/config-server:0.0.1-SNAPSHOT"
     ports:
-      - "8071:8071"
+      - "8091:8091"
     networks:
       ostock-network:
 
@@ -42,9 +85,27 @@ services:
       - "8080:8080"
     environment:
       PROFILE: "dev"
-      CONFIGSERVER_URL: "http://config-server:8071"
-      CONFIGSERVER_PORT: "8071"
+      CONFIGSERVER_URL: "http://config-server:8091"
+      CONFIGSERVER_PORT: "8091"
       DATABASE_PORT: "5432"
+    depends_on:
+      license-database:
+        condition: service_started
+      config-server:
+        condition: service_started
+    restart: on-failure:5
+    networks:
+      ostock-network:
+
+  organization-service:
+    image: "ostock/organization-service:0.0.1-SNAPSHOT"
+    ports:
+      - "8081:8081"
+    environment:
+      PROFILE: "dev"
+      CONFIGSERVER_URI: "http://configserver:8091"
+      CONFIGSERVER_PORT: "8091"
+      DATABASESERVER_PORT: "5432"
     depends_on:
       license-database:
         condition: service_started

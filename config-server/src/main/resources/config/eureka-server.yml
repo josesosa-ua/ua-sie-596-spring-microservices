@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: eureka-server
+  boot:
+    admin:
+      context-path: /admin
+server:
+  port: 8070
+
+eureka:
+  instance:
+    hostname: ${spring.cloud.client.ip-address}
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server-2:8071/eureka/,http://eureka-server-3:8072/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 5
+    enableSelfPreservation: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

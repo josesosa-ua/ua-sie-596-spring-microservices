@@ -10,7 +10,7 @@ spring:
           search-locations: classpath:/config
 
 server:
-  port: 8071
+  port: 8091
 
 management:
   endpoints:

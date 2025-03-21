@@ -1,22 +1,22 @@
-example:
-  property: "I am the default."
-
 spring:
   jpa:
     hibernate:
       ddl-auto: none
-      name-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-    show-sql: true
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     database: POSTGRESQL
-    datasource:
-      platform: postgres
-      testWhileIdle: true
-      validationQuery: SELECT 1
+    show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    platform: postgres
+    testWhileIdle: true
+    validationQuery: SELECT 1
   database:
-    driver-class-name: org.postgresql.Driver
+    driverClassName: org.postgresql.Driver
+
+server:
+  port: 8081
 
 management:
   endpoints:
