@@ -14,7 +14,7 @@ import com.optimagrowth.license.repository.LicenseRepository;
 @Service
 public class LicenseService {
 
-    @Qualifier("messageSource")
+    @Qualifier("ostockMessageSource")
     @Autowired
     MessageSource messages;
 

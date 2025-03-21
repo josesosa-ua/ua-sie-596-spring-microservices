@@ -17,14 +17,14 @@ public class LicenseServiceApplication {
     }
 
     @Bean
-    public LocaleResolver localeResolver() {
+    public LocaleResolver ostockLocaleResolver() {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
         localeResolver.setDefaultLocale(Locale.US);
         return localeResolver;
     }
 
     @Bean
-    public ResourceBundleMessageSource messageSource() {
+    public ResourceBundleMessageSource ostockMessageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setUseCodeAsDefaultMessage(true);
         messageSource.setBasenames("messages");
