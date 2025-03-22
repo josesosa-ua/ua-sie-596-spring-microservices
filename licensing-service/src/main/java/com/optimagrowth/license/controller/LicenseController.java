@@ -43,10 +43,19 @@ public class LicenseController {
     }
 
     @RequestMapping(value = "/{licenseId}/{clientType}", method = RequestMethod.GET)
-    public License getLicensesWithClient(@PathVariable("organizationId") String organizationId,
+    public ResponseEntity<License> getLicensesWithClient(@PathVariable("organizationId") String organizationId,
             @PathVariable("licenseId") String licenseId, @PathVariable("clientType") String clientType) {
 
-        return licenseService.getLicense(licenseId, organizationId, clientType);
+        var license = licenseService.getLicense(licenseId, organizationId, clientType);
+        license.add(
+                linkTo(methodOn(LicenseController.class).getLicense(organizationId, license.getLicenseId()))
+                    .withSelfRel(),
+                linkTo(methodOn(LicenseController.class).createLicense(license)).withRel("createLicense"),
+                linkTo(methodOn(LicenseController.class).updateLicense(license)).withRel("updateLicense"),
+                linkTo(methodOn(LicenseController.class).deleteLicense(license.getLicenseId()))
+                    .withRel("deleteLicense"));
+
+        return ResponseEntity.ok(license);
     }
 
     @PutMapping
