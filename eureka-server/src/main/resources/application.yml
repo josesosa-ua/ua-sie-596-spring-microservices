@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: eureka-server
+  profiles:
+    active: test
+  config:
+    import:
+      - optional:configserver:http://config-server:8071
+
+server:
+    port: 8070
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,env
+  endpoint:
+    health:
+      show-details: always
+    env:
+      show-values: always
+  health:
+    db:
+      enabled: false
+    disk-space:
+      enabled: true

@@ -1,3 +1,16 @@
+info:
+  app:
+    name: Organization Service
+    description: Organization Service for Microservices Application
+    version: 0.0.1-SNAPSHOT
+  java:
+    version: ${java.version}
+  spring:
+    framework:
+      version: ${spring-framework.version}
+    boot:
+      version: ${spring-boot.version}
+
 example:
   property: I AM THE DEFAULT
 
@@ -18,3 +31,37 @@ spring:
 
 server:
   port: 8081
+
+eureka:
+  instance:
+    preferIpAddress: true
+    statusPageUrl: http://localhost:${server.port}/actuator/info
+    healthCheckUrl: http://localhost:${server.port}/actuator/health
+    homePageUrl: http://localhost:${server.port}/
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URI:http://eureka-server:8070/eureka/}
+
+management:
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    build:
+      enabled: true
+    git:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,env,info
+  endpoint:
+    health:
+      show-details: always
+    env:
+      show-details: always
+    info:
+      show-details: always

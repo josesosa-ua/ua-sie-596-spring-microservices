@@ -41,6 +41,22 @@ services:
     networks:
       - ostock-network
 
+  eureka-server:
+    image: ostock/eureka-server:0.0.1-SNAPSHOT
+    ports:
+      - "8070:8070"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      CONFIG_SERVER_URI: http://config-server:8071
+      CONFIG_SERVER_PORT: 8071
+    depends_on:
+      ostock-database:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+    networks:
+      - ostock-network
+
   licensing-service:
     image: ostock/licensing-service:0.0.1-SNAPSHOT
     ports:

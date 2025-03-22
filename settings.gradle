@@ -3,3 +3,4 @@ rootProject.name = 'ostock-services'
 include('licensing-service')
 include('config-server')
 include('organization-service')
+include('eureka-server')
