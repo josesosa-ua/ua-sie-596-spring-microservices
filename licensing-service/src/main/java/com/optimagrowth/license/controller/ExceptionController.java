@@ -62,4 +62,16 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
         return ResponseEntity.ok(responseWrapper);
     }
 
+    @ExceptionHandler(io.github.resilience4j.circuitbreaker.CallNotPermittedException.class)
+    public ResponseEntity<ResponseWrapper> handleCallNotPermittedException(HttpServletRequest request,
+            io.github.resilience4j.circuitbreaker.CallNotPermittedException exception) {
+
+        RestErrorList errorList = new RestErrorList(HttpStatus.SERVICE_UNAVAILABLE,
+                new ErrorMessage(exception.getMessage(), exception.getMessage()));
+        ResponseWrapper responseWrapper = new ResponseWrapper(null,
+                singletonMap("status", HttpStatus.SERVICE_UNAVAILABLE), errorList);
+
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(responseWrapper);
+    }
+
 }

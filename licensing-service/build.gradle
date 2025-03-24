@@ -6,6 +6,7 @@ plugins {
 
 ext {
     set('springCloudVersion', "2024.0.1")
+    set('resilience4jVersion', "2.3.0")
 }
 
 java {
@@ -37,6 +38,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation "io.github.resilience4j:resilience4j-spring6:${resilience4jVersion}"
+    implementation "io.github.resilience4j:resilience4j-spring-boot3:${resilience4jVersion}"
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
