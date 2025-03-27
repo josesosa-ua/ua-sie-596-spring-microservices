@@ -22,7 +22,7 @@ If you want to follow the code for a specific chapter, then got to the appropria
 1. Clone the repository.
 1. Build the project for good measure:
     ```sh
-    ./gradlew clean build![img.png](img.png)
+    ./gradlew clean build
     ```
 1. Build the Licensing Service image:
     ```sh
