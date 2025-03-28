@@ -5,6 +5,19 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      routes:
+        - id: organization-service
+          uri: lb://organization-service
+          predicates:
+            - Path=/organization/**
+          filters:
+            - RewritePath=/organization/(?<segment>.*), /${segment}
+        - id: license-service
+          uri: lb://license-service
+          predicates:
+            - Path=/license/**
+          filters:
+            - RewritePath=/license/(?<segment>.*), /${segment}
 
 server:
   port: 8072
