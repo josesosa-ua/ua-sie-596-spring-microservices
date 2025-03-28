@@ -1,0 +1,44 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+server:
+  port: 8072
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8070/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    env:
+      enabled: true
+      show-values: always
+    info:
+      enabled: true
+      show-details: always
+    gateway:
+      enabled: true
+      show-details: always
+
+logging:
+  level:
+    com.optimagrowth.license: DEBUG
+    org.springframework.web: INFO
+    root: INFO

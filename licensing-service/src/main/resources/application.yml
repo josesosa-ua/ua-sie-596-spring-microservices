@@ -61,28 +61,6 @@ springdoc:
     path: /swagger-ui.html
   show-actuator: true
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,env
-  endpoint:
-    health:
-      show-details: always
-    env:
-      show-values: always
-  health:
-    db:
-      enabled: false
-    disk-space:
-      enabled: true
-
-logging:
-  level:
-    com.optimagrowth.license: DEBUG
-    org.springframework.web: INFO
-    root: INFO
-
 ---
 spring:
   config:
