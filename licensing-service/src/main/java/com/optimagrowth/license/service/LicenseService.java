@@ -3,7 +3,7 @@ package com.optimagrowth.license.service;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
 
-import com.optimagrowth.license.utils.UserContextHolder;
+import com.optimagrowth.license.util.UserContextHolder;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;

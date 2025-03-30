@@ -1,10 +1,14 @@
-package com.optimagrowth.license.utils;
+package com.optimagrowth.organization.util;
 
 import org.springframework.util.Assert;
 
 public class UserContextHolder {
 
-    private static final ThreadLocal<UserContext> userContext = new ThreadLocal<UserContext>();
+    private static final ThreadLocal<UserContext> userContext = new ThreadLocal<>();
+
+    private UserContextHolder() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static UserContext getContext() {
         UserContext context = userContext.get();
@@ -24,6 +28,10 @@ public class UserContextHolder {
 
     public static UserContext createEmptyContext() {
         return new UserContext();
+    }
+
+    public static void clearContext() {
+        userContext.remove();
     }
 
 }

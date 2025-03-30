@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.optimagrowth.license.model.License;
 import com.optimagrowth.license.service.LicenseService;
-import com.optimagrowth.license.utils.UserContextHolder;
+import com.optimagrowth.license.util.UserContextHolder;
 
 @RestController
 @RequestMapping(value = "v1/organization/{organizationId}/license")

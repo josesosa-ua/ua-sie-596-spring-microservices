@@ -1,4 +1,4 @@
-package com.optimagrowth.license.utils;
+package com.optimagrowth.license.util;
 
 import java.io.IOException;
 
@@ -31,10 +31,19 @@ public class UserContextFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        // This method is called when the filter is first loaded into memory.
+        // You can add any initialization code here if needed.
+        logger.debug("UserContextFilter is being initialized");
+        // No specific initialization needed for this example
+
     }
 
     @Override
     public void destroy() {
+        // This method is called when the filter is being taken out of service.
+        // You can add any cleanup code here if needed.
+        logger.debug("UserContextFilter is being destroyed");
+        // No specific cleanup needed for this example
     }
 
 }
