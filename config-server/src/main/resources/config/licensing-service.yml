@@ -58,3 +58,7 @@ management:
   info:
     enabled: true
     show-details: always
+
+logging:
+  level:
+    root: DEBUG

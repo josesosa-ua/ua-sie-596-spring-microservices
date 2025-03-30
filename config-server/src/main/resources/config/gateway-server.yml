@@ -52,6 +52,4 @@ management:
 
 logging:
   level:
-    com.optimagrowth.license: DEBUG
-    org.springframework.web: INFO
-    root: INFO
+    root: DEBUG
