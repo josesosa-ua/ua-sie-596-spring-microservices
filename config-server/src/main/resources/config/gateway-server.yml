@@ -18,6 +18,18 @@ spring:
             - Path=/license/**
           filters:
             - RewritePath=/license/(?<segment>.*), /${segment}
+        - id: google
+          uri: https://www.google.com
+          predicates:
+            - Path=/google/**
+          filters:
+            - SetPath=/
+        - id: arizona-edu
+          uri: https://www.arizona.edu
+          predicates:
+              - Path=/arizona/**
+          filters:
+              - SetPath=/
 
 server:
   port: 8072

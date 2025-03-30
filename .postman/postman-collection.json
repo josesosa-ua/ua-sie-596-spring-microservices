@@ -53,12 +53,13 @@
           }
         },
         "url": {
-          "raw": "{{baseUrl}}/{{optimaGroutMapping}}/license",
+          "raw": "{{base-url}}/{{licensing-service}}/{{org-path}}/license",
           "host": [
-            "{{baseUrl}}"
+            "{{base-url}}"
           ],
           "path": [
-            "{{optimaGroutMapping}}",
+            "{{licensing-service}}",
+            "{{org-path}}",
             "license"
           ]
         }
@@ -107,12 +108,13 @@
           }
         ],
         "url": {
-          "raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-1}}",
+          "raw": "{{base-url}}/{{licensing-service}}/{{org-path}}/license/{{licenseId-1}}",
           "host": [
-            "{{baseUrl}}"
+            "{{base-url}}"
           ],
           "path": [
-            "{{optimaGroutMapping}}",
+            "{{licensing-service}}",
+            "{{org-path}}",
             "license",
             "{{licenseId-1}}"
           ]
@@ -162,12 +164,13 @@
           }
         ],
         "url": {
-          "raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-1}}/feign",
+          "raw": "{{base-url}}/{{licensing-service}}/{{org-path}}/license/{{licenseId-1}}/feign",
           "host": [
-            "{{baseUrl}}"
+            "{{base-url}}"
           ],
           "path": [
-            "{{optimaGroutMapping}}",
+            "{{licensing-service}}",
+            "{{org-path}}",
             "license",
             "{{licenseId-1}}",
             "feign"
@@ -218,12 +221,13 @@
           }
         ],
         "url": {
-          "raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-1}}/rest",
+          "raw": "{{base-url}}/{{licensing-service}}/{{org-path}}/license/{{licenseId-1}}/rest",
           "host": [
-            "{{baseUrl}}"
+            "{{base-url}}"
           ],
           "path": [
-            "{{optimaGroutMapping}}",
+            "{{licensing-service}}",
+            "{{org-path}}",
             "license",
             "{{licenseId-1}}",
             "rest"
@@ -274,12 +278,13 @@
           }
         ],
         "url": {
-          "raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-1}}/discovery",
+          "raw": "{{base-url}}/{{licensing-service}}/{{org-path}}/license/{{licenseId-1}}/discovery",
           "host": [
-            "{{baseUrl}}"
+            "{{base-url}}"
           ],
           "path": [
-            "{{optimaGroutMapping}}",
+            "{{licensing-service}}",
+            "{{org-path}}",
             "license",
             "{{licenseId-1}}",
             "discovery"
@@ -335,12 +340,13 @@
           }
         ],
         "url": {
-          "raw": "{{baseUrl}}/{{optimaGroutMapping}}/license",
+          "raw": "{{base-url}}/{{licensing-service}}/{{org-path}}/license",
           "host": [
-            "{{baseUrl}}"
+            "{{base-url}}"
           ],
           "path": [
-            "{{optimaGroutMapping}}",
+            "{{licensing-service}}",
+            "{{org-path}}",
             "license"
           ]
         }
@@ -396,12 +402,13 @@
           }
         },
         "url": {
-          "raw": "{{baseUrl}}/{{optimaGroutMapping}}/license",
+          "raw": "{{base-url}}/{{licensing-service}}/{{org-path}}/license",
           "host": [
-            "{{baseUrl}}"
+            "{{base-url}}"
           ],
           "path": [
-            "{{optimaGroutMapping}}",
+            "{{licensing-service}}",
+            "{{org-path}}",
             "license"
           ]
         }
@@ -443,14 +450,114 @@
           }
         ],
         "url": {
-          "raw": "{{baseUrl}}/{{optimaGroutMapping}}/license/{{licenseId-1}}",
+          "raw": "{{base-url}}/{{licensing-service}}/{{org-path}}/license/{{licenseId-1}}",
           "host": [
-            "{{baseUrl}}"
+            "{{base-url}}"
           ],
           "path": [
-            "{{optimaGroutMapping}}",
+            "{{licensing-service}}",
+            "{{org-path}}",
             "license",
             "{{licenseId-1}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Organization auto mapping",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base-url}}/organization-service/v1/organization/d898a142-de44-466c-8c88-9ceb2c2429d3",
+          "host": [
+            "{{base-url}}"
+          ],
+          "path": [
+            "organization-service",
+            "v1",
+            "organization",
+            "d898a142-de44-466c-8c88-9ceb2c2429d3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Organization manual mapping",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base-url}}/organization/v1/organization/d898a142-de44-466c-8c88-9ceb2c2429d3",
+          "host": [
+            "{{base-url}}"
+          ],
+          "path": [
+            "organization",
+            "v1",
+            "organization",
+            "d898a142-de44-466c-8c88-9ceb2c2429d3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Google redirect",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base-url}}/google/search?q=jose",
+          "host": [
+            "{{base-url}}"
+          ],
+          "path": [
+            "google",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "jose"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Arizona Edu redirect",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base-url}}/arizona",
+          "host": [
+            "{{base-url}}"
+          ],
+          "path": [
+            "arizona"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Actuator Refresh",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base-url}}/actuator/refresh",
+          "host": [
+            "{{base-url}}"
+          ],
+          "path": [
+            "actuator",
+            "refresh"
           ]
         }
       },
@@ -498,6 +605,21 @@
     {
       "key": "badLicenseId",
       "value": "aksjdh",
+      "type": "default"
+    },
+    {
+      "key": "base-url",
+      "value": "localhost:8072",
+      "type": "string"
+    },
+    {
+      "key": "licensing-service",
+      "value": "licensing-service",
+      "type": "string"
+    },
+    {
+      "key": "org-path",
+      "value": "v1/organization/e6a625cc-718b-48c2-ac76-1dfdff9a531e",
       "type": "default"
     }
   ]
