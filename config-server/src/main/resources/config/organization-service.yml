@@ -28,6 +28,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/spmia-realm
+          jwk-set-uri: http://keycloak:8080/realms/spmia-realm/protocol/openid-connect/certs
 
 server:
   port: 8081
@@ -63,3 +69,4 @@ management:
 logging:
   level:
     root: DEBUG
+

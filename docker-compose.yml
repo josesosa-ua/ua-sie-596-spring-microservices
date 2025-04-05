@@ -51,7 +51,86 @@ services:
     networks:
       - ostock-network
 
-  # ... rest of the services remain unchanged ...
+  config-server:
+    image: ostock/config-server:0.0.1-SNAPSHOT
+    ports:
+      - 8071:8071
+    networks:
+      - ostock-network
+
+  eureka-server:
+    image: ostock/eureka-server:0.0.1-SNAPSHOT
+    ports:
+      - "8070:8070"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      CONFIG_SERVER_URI: http://config-server:8071
+      CONFIG_SERVER_PORT: 8071
+    depends_on:
+      ostock-database:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+    networks:
+      - ostock-network
+
+  gateway-server:
+    image: ostock/gateway-server:0.0.1-SNAPSHOT
+    ports:
+      - "8072:8072"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      CONFIG_SERVER_URI: http://config-server:8071
+      CONFIG_SERVER_PORT: 8071
+    depends_on:
+      config-server:
+        condition: service_started
+      eureka-server:
+        condition: service_started
+      keycloak:
+        condition: service_started
+    networks:
+      - ostock-network
+
+  licensing-service:
+    image: ostock/licensing-service:0.0.1-SNAPSHOT
+    ports:
+      - "8180:8180"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      CONFIG_SERVER_URI: http://config-server:8071
+      CONFIG_SERVER_PORT: 8071
+      DATABASESERVER_PORT: 5432
+    depends_on:
+      ostock-database:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+      eureka-server:
+        condition: service_started
+      keycloak:
+        condition: service_started
+    networks:
+      - ostock-network
+
+  organization-service:
+    image: ostock/organization-service:0.0.1-SNAPSHOT
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      CONFIG_SERVER_URI: http://config-server:8071
+      CONFIG_SERVER_PORT: 8071
+      DATABASESERVER_PORT: 5432
+    depends_on:
+      ostock-database:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+      eureka-server:
+        condition: service_started
+    networks:
+      - ostock-network
 
 networks:
   ostock-network:
