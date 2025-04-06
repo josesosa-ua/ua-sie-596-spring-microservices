@@ -8,6 +8,7 @@ import static java.util.Collections.singletonMap;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -72,6 +73,18 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
                 singletonMap("status", HttpStatus.SERVICE_UNAVAILABLE), errorList);
 
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(responseWrapper);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ResponseWrapper> handleAccessDeniedException(HttpServletRequest request,
+            AccessDeniedException exception) {
+
+        RestErrorList errorList = new RestErrorList(HttpStatus.FORBIDDEN,
+                new ErrorMessage(exception.getMessage(), exception.getMessage()));
+        ResponseWrapper responseWrapper = new ResponseWrapper(null, singletonMap("status", HttpStatus.FORBIDDEN),
+                errorList);
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(responseWrapper);
     }
 
 }

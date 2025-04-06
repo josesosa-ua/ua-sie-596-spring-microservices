@@ -32,6 +32,12 @@ public class SecurityConfig {
     @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
     private String jwkSetUri;
 
+    private final OstockProperties ostockProperties;
+
+    public SecurityConfig(OstockProperties ostockProperties) {
+        this.ostockProperties = ostockProperties;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
@@ -68,15 +74,15 @@ public class SecurityConfig {
         if (resourceAccess == null) {
             return Collections.emptyList();
         }
-        Map<String, Object> ostock = (Map<String, Object>) resourceAccess.get("ostock");
-        return getGrantedAuthorities(ostock);
+        Map<String, Object> client = (Map<String, Object>) resourceAccess.get(ostockProperties.getClientName());
+        return getGrantedAuthorities(client);
     }
 
-    private List<GrantedAuthority> getGrantedAuthorities(Map<String, Object> ostock) {
-        if (ostock == null) {
+    private List<GrantedAuthority> getGrantedAuthorities(Map<String, Object> client) {
+        if (client == null) {
             return Collections.emptyList();
         }
-        List<String> roles = safeCastToListOfStrings(ostock.get("roles"));
+        List<String> roles = safeCastToListOfStrings(client.get("roles"));
         if (roles == null) {
             return Collections.emptyList();
         }
@@ -89,8 +95,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthoritiesConverter realmRolesAuthoritiesConverter() {
-        return claims -> Stream.concat(extractRolesFromClaims(claims), extractRolesFromClaimsResource(claims))
-            .collect(Collectors.toList());
+        return claims -> Stream.concat(extractRolesFromClaims(claims), extractRolesFromClaimsResource(claims)).toList();
     }
 
     @SuppressWarnings("unchecked")
@@ -105,7 +110,7 @@ public class SecurityConfig {
         if (resourceAccess == null) {
             return Stream.empty();
         }
-        Map<String, Object> resource = (Map<String, Object>) resourceAccess.get("ostock");
+        Map<String, Object> resource = (Map<String, Object>) resourceAccess.get(ostockProperties.getClientName());
         return getGrantedAuthorityStream(resource);
     }
 
