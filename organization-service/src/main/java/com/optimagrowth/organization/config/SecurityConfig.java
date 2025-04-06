@@ -46,6 +46,25 @@ public class SecurityConfig {
         return NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
     }
 
+    @Bean
+    GrantedAuthoritiesMapper authenticationConverter(
+            Converter<Map<String, Object>, Collection<GrantedAuthority>> authoritiesConverter) {
+        return authorities -> authorities.stream()
+            .filter(Objects::nonNull)
+            .map(OidcUserAuthority.class::cast)
+            .map(OidcUserAuthority::getIdToken)
+            .map(OidcIdToken::getClaims)
+            .map(authoritiesConverter::convert)
+            .filter(Objects::nonNull)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toSet());
+    }
+
+    @Bean
+    public AuthoritiesConverter realmRolesAuthoritiesConverter() {
+        return claims -> Stream.concat(extractRolesFromClaims(claims), extractRolesFromClaimsResource(claims)).toList();
+    }
+
     private Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {
         JwtAuthenticationConverter jwtAuthConverter = new JwtAuthenticationConverter();
         jwtAuthConverter.setJwtGrantedAuthoritiesConverter(this::convertJwtToAuthorities);
@@ -87,12 +106,6 @@ public class SecurityConfig {
         return "ROLE_" + role;
     }
 
-    @Bean
-    public AuthoritiesConverter realmRolesAuthoritiesConverter() {
-        return claims -> Stream.concat(extractRolesFromClaims(claims), extractRolesFromClaimsResource(claims))
-            .collect(Collectors.toList());
-    }
-
     @SuppressWarnings("unchecked")
     private Stream<GrantedAuthority> extractRolesFromClaims(Map<String, Object> claims) {
         Map<String, Object> section = (Map<String, Object>) claims.get("realm_access");
@@ -115,20 +128,6 @@ public class SecurityConfig {
         }
         List<String> roles = safeCastToListOfStrings(resource.get("roles"));
         return roles.stream().map(this::formatRole).map(SimpleGrantedAuthority::new);
-    }
-
-    @Bean
-    GrantedAuthoritiesMapper authenticationConverter(
-            Converter<Map<String, Object>, Collection<GrantedAuthority>> authoritiesConverter) {
-        return authorities -> authorities.stream()
-            .filter(Objects::nonNull)
-            .map(OidcUserAuthority.class::cast)
-            .map(OidcUserAuthority::getIdToken)
-            .map(OidcIdToken::getClaims)
-            .map(authoritiesConverter::convert)
-            .filter(Objects::nonNull)
-            .flatMap(Collection::stream)
-            .collect(Collectors.toSet());
     }
 
     private List<String> safeCastToListOfStrings(Object obj) {

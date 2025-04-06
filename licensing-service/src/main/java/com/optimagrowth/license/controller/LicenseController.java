@@ -9,7 +9,6 @@ import java.util.concurrent.TimeoutException;
 import jakarta.annotation.security.RolesAllowed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,24 +33,7 @@ public class LicenseController {
     public ResponseEntity<License> getLicense(@PathVariable("organizationId") String organizationId,
             @PathVariable("licenseId") String licenseId) {
 
-        License license = licenseService.getLicense(licenseId, organizationId, "");
-        license.add(
-                linkTo(methodOn(LicenseController.class).getLicense(organizationId, license.getLicenseId()))
-                    .withSelfRel(),
-                linkTo(methodOn(LicenseController.class).createLicense(license)).withRel("createLicense"),
-                linkTo(methodOn(LicenseController.class).updateLicense(license)).withRel("updateLicense"),
-                linkTo(methodOn(LicenseController.class).deleteLicense(license.getLicenseId()))
-                    .withRel("deleteLicense"));
-
-        return ResponseEntity.ok(license);
-    }
-
-    @RolesAllowed({ "ADMIN", "USER" })
-    @GetMapping(value = "/{licenseId}/{clientType}")
-    public ResponseEntity<License> getLicensesWithClient(@PathVariable("organizationId") String organizationId,
-            @PathVariable("licenseId") String licenseId, @PathVariable("clientType") String clientType) {
-
-        var license = licenseService.getLicense(licenseId, organizationId, clientType);
+        License license = licenseService.getLicense(licenseId, organizationId);
         license.add(
                 linkTo(methodOn(LicenseController.class).getLicense(organizationId, license.getLicenseId()))
                     .withSelfRel(),
