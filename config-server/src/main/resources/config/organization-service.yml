@@ -37,6 +37,16 @@ spring:
         jwt:
           issuer-uri: http://keycloak:8080/realms/spmia-realm
           jwk-set-uri: http://keycloak:8080/realms/spmia-realm/protocol/openid-connect/certs
+  cloud:
+    stream:
+      bindings:
+        organizationChanges-output:
+          destination: orgChangeTopic
+          contentType: application/json
+      kafka:
+        binder:
+          zNodes: kafka-server
+          brokers: kafka-server
 
 server:
   port: 8081

@@ -1,14 +1,12 @@
 package com.optimagrowth.organization.util;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
-@Setter
-@Getter
 @Component
 public class UserContext {
 
+    // Header constants
     public static final String CORRELATION_ID = "tmx-correlation-id";
 
     public static final String AUTH_TOKEN = "tmx-auth-token";
@@ -17,12 +15,57 @@ public class UserContext {
 
     public static final String ORGANIZATION_ID = "tmx-organization-id";
 
-    private String correlationId = "";
+    private static final ThreadLocal<String> correlationId = new ThreadLocal<>();
 
-    private String authToken = "";
+    private static final ThreadLocal<String> authToken = new ThreadLocal<>();
 
-    private String userId = "";
+    private static final ThreadLocal<String> userId = new ThreadLocal<>();
 
-    private String organizationId = "";
+    private static final ThreadLocal<String> organizationId = new ThreadLocal<>();
+
+    public static void clear() {
+        correlationId.remove();
+        authToken.remove();
+        userId.remove();
+        organizationId.remove();
+    }
+
+    public static String getCorrelationId() {
+        return correlationId.get();
+    }
+
+    public static void setCorrelationId(String cid) {
+        correlationId.set(cid);
+    }
+
+    public static String getAuthToken() {
+        return authToken.get();
+    }
+
+    public static void setAuthToken(String token) {
+        authToken.set(token);
+    }
+
+    public static String getUserId() {
+        return userId.get();
+    }
+
+    public static void setUserId(String user) {
+        userId.set(user);
+    }
+
+    public static String getOrganizationId() {
+        return organizationId.get();
+    }
+
+    public static void setOrganizationId(String org) {
+        organizationId.set(org);
+    }
+
+    public static HttpHeaders getHttpHeaders() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set(CORRELATION_ID, getCorrelationId());
+        return httpHeaders;
+    }
 
 }
