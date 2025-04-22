@@ -1,12 +1,10 @@
 package com.optimagrowth.organization.event.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
+@Data
+@AllArgsConstructor
 public class OrganizationChangeModel {
 
     private String type;
@@ -16,13 +14,5 @@ public class OrganizationChangeModel {
     private String organizationId;
 
     private String correlationId;
-
-    public OrganizationChangeModel(String type, String action, String organizationId, String correlationId) {
-        super();
-        this.type = type;
-        this.action = action;
-        this.organizationId = organizationId;
-        this.correlationId = correlationId;
-    }
 
 }

@@ -40,12 +40,11 @@ spring:
   cloud:
     stream:
       bindings:
-        organizationChanges-output:
+        orgChange-out-0:
           destination: orgChangeTopic
           contentType: application/json
       kafka:
         binder:
-          zNodes: kafka-server
           brokers: kafka-server
 
 server:

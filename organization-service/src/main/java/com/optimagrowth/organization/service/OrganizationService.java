@@ -3,7 +3,7 @@ package com.optimagrowth.organization.service;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.optimagrowth.organization.event.source.SimpleSourceBean;
+import com.optimagrowth.organization.event.KafkaSource;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,29 +16,29 @@ public class OrganizationService {
 
     private final OrganizationRepository repository;
 
-    private final SimpleSourceBean sourceBean;
+    private final KafkaSource kafkaSource;
 
     public Organization findById(String organizationId) {
         Optional<Organization> opt = repository.findById(organizationId);
-        sourceBean.publishOrganizationChange("GET", organizationId);
+        kafkaSource.publishOrganizationChange("GET", organizationId);
         return opt.orElse(null);
     }
 
     public Organization create(Organization organization) {
         organization.setId(UUID.randomUUID().toString());
         organization = repository.save(organization);
-        sourceBean.publishOrganizationChange("SAVE", organization.getId());
+        kafkaSource.publishOrganizationChange("SAVE", organization.getId());
         return organization;
     }
 
     public void update(Organization organization) {
+        kafkaSource.publishOrganizationChange("UPDATE", organization.getId());
         repository.save(organization);
-        sourceBean.publishOrganizationChange("UPDATE", organization.getId());
     }
 
     public void delete(Organization organization) {
+        kafkaSource.publishOrganizationChange("DELETE", organization.getId());
         repository.deleteById(organization.getId());
-        sourceBean.publishOrganizationChange("DELETE", organization.getId());
     }
 
 }
