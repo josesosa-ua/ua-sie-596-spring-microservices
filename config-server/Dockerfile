@@ -16,6 +16,8 @@ RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)
 # Stage 2: Create the final image
 FROM openjdk:21-slim
 
+RUN apt-get update && apt-get install -y --no-install-recommends busybox && rm -rf /var/lib/apt/lists/*
+
 # Add volume pointing to /tmp
 VOLUME /tmp
 
