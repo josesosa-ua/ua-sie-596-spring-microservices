@@ -37,6 +37,18 @@ spring:
         jwt:
           issuer-uri: http://keycloak:8080/realms/spmia-realm
           jwk-set-uri: http://keycloak:8080/realms/spmia-realm/protocol/openid-connect/certs
+  cloud:
+    function:
+      definition: orgChange
+    stream:
+      kafka:
+        binder:
+          brokers: kafka-server
+      bindings:
+        orgChange-in-0:
+          destination: orgChangeEvent
+          content-type: application/json
+          group: licensing-service
 
 
 server:
