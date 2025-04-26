@@ -1,24 +1,27 @@
 package com.optimagrowth.license.model;
 
+import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import java.io.Serial;
+import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 @ToString
-public class Organization extends RepresentationModel<Organization> {
+@EqualsAndHashCode(callSuper = false)
+public class Organization extends RepresentationModel<Organization> implements Serializable {
 
-    String id;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    String name;
+    private String id;
 
-    String contactName;
+    private String name;
 
-    String contactEmail;
+    private String contactName;
 
-    String contactPhone;
+    private String contactEmail;
+
+    private String contactPhone;
 
 }

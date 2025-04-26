@@ -17,7 +17,6 @@ import com.optimagrowth.license.config.ServiceConfig;
 import com.optimagrowth.license.model.License;
 import com.optimagrowth.license.model.Organization;
 import com.optimagrowth.license.repository.LicenseRepository;
-import com.optimagrowth.license.service.client.OrganizationFeignClient;
 import org.springframework.web.client.ResourceAccessException;
 
 @Service
@@ -30,12 +29,12 @@ public class LicenseService {
 
     private final ServiceConfig config;
 
-    private final OrganizationFeignClient organizationFeignClient;
+    private final OrganizationService organizationService;
 
-    public LicenseService(LicenseRepository licenseRepository, OrganizationFeignClient organizationFeignClient,
+    public LicenseService(LicenseRepository licenseRepository, OrganizationService organizationService,
             ServiceConfig serviceConfig, @Qualifier("ostockMessageSource") MessageSource messages) {
         this.licenseRepository = licenseRepository;
-        this.organizationFeignClient = organizationFeignClient;
+        this.organizationService = organizationService;
         this.config = serviceConfig;
         this.messages = messages;
     }
@@ -48,6 +47,7 @@ public class LicenseService {
         }
 
         Organization organization = retrieveOrganizationInfo(organizationId);
+        log.debug("License Service found Organization: {}", organization);
         if (null != organization) {
             license.setOrganizationName(organization.getName());
             license.setContactName(organization.getContactName());
@@ -59,7 +59,8 @@ public class LicenseService {
     }
 
     private Organization retrieveOrganizationInfo(String organizationId) {
-        return organizationFeignClient.getOrganization(organizationId);
+        log.debug("License Service retrieving Organization: {}", organizationId);
+        return organizationService.getOrganization(organizationId);
     }
 
     public License createLicense(License license) {

@@ -18,6 +18,12 @@ ostock:
   client-name: ds-ostock
 
 spring:
+  data:
+    redis:
+      host: redis-server
+      port: 6379
+      repository:
+        enabled: false
   datasource:
     testWhileIdle: true
     validationQuery: SELECT 1
@@ -49,7 +55,6 @@ spring:
           destination: orgChangeEvent
           content-type: application/json
           group: licensing-service
-
 
 server:
   port: 8180
