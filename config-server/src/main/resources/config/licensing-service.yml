@@ -86,10 +86,18 @@ management:
     enabled: true
     show-details: always
   tracing:
-    enabled: true
     sampling:
       probability: 1.0
-
-logging:
-  level:
-    root: DEBUG
+    baggage:
+      correlation:
+        enabled: true
+  otlp:
+    tracing:
+      endpoint: http://otel-collector:4318/v1/traces
+      protocol: http/protobuf
+  metrics:
+    export:
+      otlp:
+        enabled: true
+        endpoint: http://otel-collector:4318/v1/metrics
+        protocol: http/protobuf
