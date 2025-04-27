@@ -12,13 +12,16 @@ processors:
 exporters:
   debug:
     verbosity: detailed
+  zipkin:
+    endpoint: http://zipkin:9411/api/v2/spans
+    format: json
 
 service:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug]
+      exporters: [debug, zipkin]
     logs:
       receivers: [otlp]
       processors: [batch]

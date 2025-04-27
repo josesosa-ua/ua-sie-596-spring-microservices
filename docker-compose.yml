@@ -135,14 +135,24 @@ services:
     networks:
       - ostock-network
 
+  zipkin:
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"
+    networks:
+      - ostock-network
+
   otel-collector:
     image: otel/opentelemetry-collector-contrib:latest
-    command: [ "--config=/etc/otel-collector-config.yaml" ]
+    command: [ "--config=/etc/otel-collector-config.yml" ]
     ports:
       - "4317:4317"   # OTLP gRPC
       - "4318:4318"   # OTLP HTTP
     volumes:
-      - ./.otel/collector-config.yml:/etc/otel-collector-config.yaml
+      - ./.otel/collector-config.yml:/etc/otel-collector-config.yml
+    depends_on:
+      zipkin:
+        condition: service_started
     networks:
       - ostock-network
 
@@ -156,6 +166,7 @@ services:
       CONFIG_SERVER_PORT: 8071
       DATABASESERVER_PORT: 5432
       MANAGEMENT_OTLP_METRICS_EXPORT_OTLP_ENDPOINT: http://otel-collector:4318/v1/metrics
+      MANAGEMENT_OTLP_TRACING_ENDPOINT: http://otel-collector:4318/v1/traces
     depends_on:
       ostock-database:
         condition: service_healthy
