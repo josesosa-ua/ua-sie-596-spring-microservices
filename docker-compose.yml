@@ -192,12 +192,16 @@ services:
       CONFIG_SERVER_URI: http://config-server:8071
       CONFIG_SERVER_PORT: 8071
       DATABASESERVER_PORT: 5432
+      MANAGEMENT_OTLP_METRICS_EXPORT_OTLP_ENDPOINT: http://otel-collector:4318/v1/metrics
+      MANAGEMENT_OTLP_TRACING_ENDPOINT: http://otel-collector:4318/v1/traces
     depends_on:
       ostock-database:
         condition: service_healthy
       config-server:
         condition: service_healthy
       eureka-server:
+        condition: service_started
+      otel-collector:
         condition: service_started
     networks:
       - ostock-network
